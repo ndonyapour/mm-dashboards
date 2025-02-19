@@ -1,0 +1,12 @@
+name: dashboard
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - ambertools
+  - nglview
+  - ipywidgets=7.7.0
+  - fastapi
+  - pip
+  - pip:
+      - solara
