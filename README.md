@@ -3,12 +3,6 @@
     <img src="https://img.shields.io/pypi/dm/rxiv-types?style=flat-square" />
     <img src="https://img.shields.io/pypi/l/rxiv-types?style=flat-square"/>
     <img src="https://img.shields.io/pypi/v/rxiv-types?style=flat-square"/>
-    <a href="https://github.com/tefra/xsdata-pydantic">
-        <img alt="Built with: xsdata-pydantic" src="https://img.shields.io/badge/Built%20with-xsdata--pydantic-blue">
-    </a>
-    <a href="https://github.com/dbrgn/coverage-badge">
-        <img src="./images/coverage.svg">
-    </a>
 </p>
 
 ---
@@ -23,7 +17,7 @@ To address this limitation, we integrated **FastAPI** to serve **NGLView-generat
 
 ## **Installation**  
 
-### **1️⃣ Install Required Packages**  
+### **Install Required Packages**  
 ```bash
 conda env create -f environment.yml
 conda activate dashboard
@@ -33,13 +27,13 @@ conda activate dashboard
 
 ## **Usage**  
 
-### **1️⃣ Start the FastAPI Server**  
+### **Start the FastAPI Server**  
 You need to first **run `server.py`** to serve the HTML files using **FastAPI**:  
 ```bash
 uvicorn server:app --reload
 ```
 
-### **2️⃣ Run the Dashboard**  
+### **Run the Dashboard**  
 Once the server is running, start the **Solara dashboard**:  
 ```bash
 SOLARA_ROOT_PATH=${JUPYTERHUB_SERVICE_PREFIX}/proxy/8765 solara run dashboard.py

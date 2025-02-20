@@ -1,0 +1,23 @@
+[project]
+name = "mm-dashboards"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "fastapi>=0.115.8",
+    "ipywidgets==7.7.0",
+    "nglview>=3.0.8",
+    "solara>=1.44.1",
+]
+
+
+[project.urls]
+Repository = "https://github.com/ndonyapour/mm-dashboards"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
