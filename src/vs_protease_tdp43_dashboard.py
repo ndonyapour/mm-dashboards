@@ -17,12 +17,15 @@ os.makedirs(assets_folder, exist_ok=True)
 # Regex pattern to extract SMILES from HTML files
 SMILES_PATTERN = re.compile(r'<div class="smiles-entry">([^<]+)</div>', re.IGNORECASE)
 
-# Function to extract SMILES mapping from HTML files
+# Function to extract SMILES mapping from specific HTML files (vis_pose_tdp43_diffdock_X.html)
 def extract_smiles_mapping() -> Dict[str, str]:
     smiles_to_file = {}
+
     for file_name in os.listdir(assets_folder):
         file_path = os.path.join(assets_folder, file_name)
-        if file_name.endswith(".html") and os.path.isfile(file_path):
+
+        # Ensure it matches the naming pattern "vis_pose_tdp43_diffdock_X.html"
+        if file_name.startswith("vis_pose_tdp43_diffdock_") and file_name.endswith(".html") and os.path.isfile(file_path):
             try:
                 with open(file_path, "r", encoding="utf-8") as file:
                     content = file.read()
@@ -32,6 +35,7 @@ def extract_smiles_mapping() -> Dict[str, str]:
                         smiles_to_file[smiles] = file_name  # Store file name, not full path
             except Exception as e:
                 print(f"Error reading {file_name}: {e}")
+
     return smiles_to_file
 
 @solara.component
@@ -43,11 +47,12 @@ def Page():
         """
         ## Virtual Screening Docking Poses
         These docking poses are generated using **DiffDock** within the Virtual Screening workflow.
-        The compounds are from the **NIH Protease Inhibitory Library**, and the docking was performed
+        The compounds are from the **NCATS Protease Inhibitory Library**, and the docking was performed
         against the **TDP-43 protein structure**, which was predicted by **OpenFold**.
         
         Select a SMILES below to view its corresponding docking visualization.
-        """
+        """,
+        style={"text-align": "center", "margin-left": "5%"}/home/jovyan/work/dashboard/assets
     )
 
     smiles_mapping = extract_smiles_mapping()
@@ -55,7 +60,7 @@ def Page():
 
     # Ensure there are available options
     if not smiles_options:
-        solara.Text("No HTML files with SMILES found in the assets folder.")
+        solara.Text("No HTML files matching the pattern 'vis_pose_tdp43_diffdock_X.html' found in the assets folder.")
         return
 
     # Reactive state for selected SMILES and file URL
@@ -77,11 +82,11 @@ def Page():
             on_value=on_smiles_change
         )
 
-        # Reactive block to update the button dynamically
+        # Button dynamically updates to show the selected SMILES
         solara.Button(
             label=f"Open {selected_smiles}",
             icon_name="mdi-file-document",
             attributes={"href": selected_file_url, "target": "_blank"},
             text=True,
-            outlined=True
+    
         )
